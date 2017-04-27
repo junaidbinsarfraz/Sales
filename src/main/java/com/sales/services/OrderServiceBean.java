@@ -3,7 +3,6 @@ package com.sales.services;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,10 @@ public class OrderServiceBean implements OrderService {
 	@Autowired
 	private OrderRepository orderRepository;
 	
+	@Autowired
 	private ProductService productService;
+	
+	@Autowired
 	private CustomerService customerService;
 	
 	@Override
@@ -31,32 +33,35 @@ public class OrderServiceBean implements OrderService {
 	public String save(Order order) {
 		
 		String result = "";
+		int qtyInStock = 0;
 		
 		Product product = productService.findOne(order.getProd().getpId());
 		Customer customer = customerService.findOne(order.getCust().getcId());
 
-//		(product == null) ? (result += "No such product: " + order.getProd().getpId()) : result = "";
 		if(product == null) {
 			result += "No such product: " + order.getProd().getpId() + " ";
+		} else {
+			qtyInStock = product.getQtyInStock();
+			
+			if(qtyInStock < order.getQty()) {
+				result += " Quantity too large: Product stock = " + qtyInStock;
+			}
 		}
 		
 		if(customer == null) {
 			result += "No such customer: " + order.getCust().getcId();
 		}
 		
-		int qtyInStock = product.getQtyInStock();
-		
-		if(qtyInStock < order.getQty()) {
-			result += " Quantity too large: Product stock = " + qtyInStock;
-		}
-		
 		if(Boolean.TRUE.equals(result.isEmpty())) {
+			
+			product.setQtyInStock(qtyInStock - order.getQty());
 			
 			Calendar calendar = Calendar.getInstance();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			
 			order.setOrderDate(dateFormat.format(calendar.getTime()));
-			order.getProd().setQtyInStock(qtyInStock - order.getQty());
+			order.setCust(customer);
+			order.setProd(product);
 			
 			orderRepository.save(order);
 		}

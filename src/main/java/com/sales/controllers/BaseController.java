@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sales.exceptions.DefaultExceptionAttributes;
 import com.sales.exceptions.ExceptionAttributes;
@@ -17,6 +19,7 @@ import com.sales.exceptions.ExceptionAttributes;
 public class BaseController {
 
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
+	protected Boolean isLoggedIn = Boolean.FALSE;
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<Map<String, Object>> handleException(Exception exception, HttpServletRequest request) {
@@ -50,5 +53,18 @@ public class BaseController {
 
 		return new ResponseEntity<Map<String, Object>>(responseBody, HttpStatus.NOT_FOUND);
 	}
-
+	
+	/*@RequestMapping(value="*", method = RequestMethod.GET)
+	public String verifyUser(HttpServletRequest request) {
+		
+		if(Boolean.TRUE.equals(isLoggedIn) && request.getRequestURL().toString().contains("login")) {
+			return "redirect:index";
+		} else if(Boolean.FALSE.equals(isLoggedIn) && !request.getRequestURL().toString().contains("login")) {
+			return "redirect:login";
+		}
+		
+		return "";
+		
+	}*/
+	
 }

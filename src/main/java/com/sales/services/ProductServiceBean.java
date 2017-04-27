@@ -3,10 +3,12 @@ package com.sales.services;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.sales.models.Product;
 import com.sales.repositories.ProductRepository;
 
+@Service
 public class ProductServiceBean implements ProductService {
 
 	@Autowired
