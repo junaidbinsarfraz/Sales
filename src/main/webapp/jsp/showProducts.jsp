@@ -1,5 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <body>
 
 	<h1>List of Products</h1>
@@ -26,5 +27,12 @@
 		</table>
 
 	</c:if>
+	<a href="/">Home</a>
+	<a href="/addProduct">Add Product</a>
+	<a href="/showProducts">List Products</a>
+	<a href="/showOrders">List Orders</a>
+	<!-- <form th:action="@{/logout}" method="post">
+         <a href="#" onclick="form.submit">Logout</a>
+     </form> -->
 </body>
 </html>
