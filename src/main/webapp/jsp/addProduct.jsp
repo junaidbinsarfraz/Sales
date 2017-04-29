@@ -17,5 +17,9 @@
 		<input type="submit" value="Add" />
 		<!-- <input type="hidden" name="qtyInStock" /> -->
 	</form>
+	
+	<a href="/">Home</a>
+	<a href="/showProducts">List Products</a>
+	<a href="/showOrders">List Orders</a>
 </body>
 </html>

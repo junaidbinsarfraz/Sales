@@ -19,5 +19,12 @@
 		<br />
 		<input type="submit" value="Add" />
 	</form>
+	
+	<a href="/">Home</a>
+	<a href="/showCustomers">List Customers</a>
+	<a href="/showProducts">List Products</a>
+	<form action="/logout" name="form" id="form" method="post">
+        <a href="#" onclick="form.submit();">Logout</a>
+    </form>
 </body>
 </html>

@@ -21,5 +21,9 @@
 			</tr>
 		</tbody>
 	</table>
+	
+	<a href="/">Home</a>
+	<a href="/addOrder">New Order</a>
+	<a href="/showOrders">List Order</a>
 </body>
 </html>
